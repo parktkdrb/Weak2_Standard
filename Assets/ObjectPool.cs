@@ -11,8 +11,9 @@ public class ObjectPool : MonoBehaviour
     void Start()
     {
         //미리 poolSize만큼 게임오브젝트를 생성한다.
-        pool[poolSize];
-        Debug.Log(pool.Count);
+        pool.Clear();
+        
+        
     }
 
     /*public GameObject Get()
