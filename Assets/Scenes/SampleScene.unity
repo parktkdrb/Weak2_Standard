@@ -179,8 +179,41 @@ PrefabInstance:
       propertyPath: parent
       value: 
       objectReference: {fileID: 913330946}
+    - target: {fileID: 6610991935682756328, guid: 41b117393b2d4064eba83665a7f0d63a, type: 3}
+      propertyPath: prefab1
+      value: 
+      objectReference: {fileID: 6528834012076441819, guid: ceeb89dd7f0452f478486d391a368269, type: 3}
+    - target: {fileID: 6610991935682756328, guid: 41b117393b2d4064eba83665a7f0d63a, type: 3}
+      propertyPath: prefab2
+      value: 
+      objectReference: {fileID: 40141641698261178, guid: 7a196ac5a98104845b9c379c529468a5, type: 3}
+    - target: {fileID: 6610991935682756328, guid: 41b117393b2d4064eba83665a7f0d63a, type: 3}
+      propertyPath: poolSize
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6610991935682756328, guid: 41b117393b2d4064eba83665a7f0d63a, type: 3}
+      propertyPath: pool.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6610991935682756328, guid: 41b117393b2d4064eba83665a7f0d63a, type: 3}
+      propertyPath: prefab.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6610991935682756328, guid: 41b117393b2d4064eba83665a7f0d63a, type: 3}
+      propertyPath: pool.Array.data[0]
+      value: 
+      objectReference: {fileID: 6528834012076441819, guid: ceeb89dd7f0452f478486d391a368269, type: 3}
+    - target: {fileID: 6610991935682756328, guid: 41b117393b2d4064eba83665a7f0d63a, type: 3}
+      propertyPath: prefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 6528834012076441819, guid: ceeb89dd7f0452f478486d391a368269, type: 3}
+    - target: {fileID: 6610991935682756328, guid: 41b117393b2d4064eba83665a7f0d63a, type: 3}
+      propertyPath: prefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 40141641698261178, guid: 7a196ac5a98104845b9c379c529468a5, type: 3}
     m_RemovedComponents:
     - {fileID: 5666951925525600514, guid: 41b117393b2d4064eba83665a7f0d63a, type: 3}
+    - {fileID: 5033001333041853261, guid: 41b117393b2d4064eba83665a7f0d63a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -297,6 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c15975f12a262ee48b85046f3c5816f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _questManager: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -11,9 +11,14 @@ public class QuestManager : MonoBehaviour
     {
         get
         {
+            if (_instance == null)
+            {
+                _instance = new GameObject("QuestManager").AddComponent<QuestManager>();
+            }
             return _instance;
         }
     }
+    [SerializeField] public List<QuestDataSO> data = new List<QuestDataSO>();
 
     private void Awake()
     {
@@ -30,12 +35,19 @@ public class QuestManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        for(int i = 0; i < data.Count; i++)
+        {
+            Debug.Log($"Quest{i} : {data[i].QuestName} (최소레벨{data[i].QuestRequiredLevel})");
+            if (data[i] is EncounterSO encounterQuest)
+            {
+                Debug.Log($"{data[i].QuestDetail}");
+            }
+            else if (data[i] is MonsterQuestSO monsterQuest)
+            {
+                Debug.Log($"{monsterQuest.MonsterName}를 {monsterQuest.KillMonster} 소탕");
+            }
+            
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

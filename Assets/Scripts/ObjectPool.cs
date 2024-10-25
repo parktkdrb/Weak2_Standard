@@ -5,11 +5,12 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool instance;
-    public GameObject prefab;
+    public GameObject prefab1;
+    public GameObject prefab2;
     public GameObject parent;
-    //[SerializeField]private List<GameObject> pool = new List<GameObject>();
-    [SerializeField] private Queue<GameObject> pool = new Queue<GameObject>();
-    public int poolSize = 300;
+    [SerializeField] private List<GameObject> pool = new List<GameObject>();
+    [SerializeField] private Dictionary<string, List<GameObject>> poolDictionary = new Dictionary<string, List<GameObject>>();
+    public int poolSize = 150;
 
     private void Awake()
     {
@@ -19,69 +20,51 @@ public class ObjectPool : MonoBehaviour
 
     void Start()
     {
-        //미리 poolSize만큼 게임오브젝트를 생성한다.
-        for(int i = 0; i < poolSize; i++)
+        GameObject poolIns;
+        // 미리 poolSize만큼 게임오브젝트를 생성합니다.
+        for (int i = 0; i < poolSize; i++)
         {
-            GameObject poolIns = Instantiate(prefab);
+            poolIns = Instantiate(prefab1);
+            Release(poolIns);
+            poolIns = Instantiate(prefab2);
             Release(poolIns);
         }
-            
-        
     }
-    public GameObject Get()
-    {
-        /*
-        // 다른 스크립트에서 오브젝트 풀에 있는 오브젝트를 가져가서 사용하겠다?
-        // 그러면 여기서 활성화 시켜서 보내줘야함.
-        // 오브젝트 풀에서 비활성화된 오브젝트를 찾고
-        // 활성화 시킨다.
 
-        GameObject poolGo = null;
-        for(int i = 0; i < poolSize; i++)
+    public GameObject Get(string str)
+    {
+        // 해당 키가 딕셔너리에 있는지 확인합니다.
+        if (poolDictionary.ContainsKey(str))
         {
-            if (pool[i].activeSelf == false)
+            List<GameObject> objectList = poolDictionary[str];
+
+            // 리스트 내에서 비활성화된 오브젝트를 찾습니다.
+            foreach (GameObject poolGo in objectList)
             {
-                poolGo = pool[i];
-                poolGo.SetActive(true);
-                break;
+                if (!poolGo.activeSelf)
+                {
+                    poolGo.SetActive(true); // 오브젝트 활성화
+                    return poolGo;          // 활성화된 오브젝트 반환
+                }
             }
         }
-        StartCoroutine(ObjectTimer(poolGo));
-        return poolGo;
-        */
-        if (pool.Count > 0) // 큐에 남아있는 오브젝트가 있으면
-        {
-            GameObject poolGo = pool.Dequeue(); // 큐에서 하나를 꺼냄
-            poolGo.SetActive(true); // 활성화 시킴
-            StartCoroutine(ObjectTimer(poolGo)); // 타이머 시작
-            return poolGo;
-        }
-        else
-        {
-            // 큐가 비었을 때 처리 (필요 시 추가 생성 가능)
-            return null;
-        }
-    }    
 
-    public void Release(GameObject _obj)// 
-    {
-        /*
-        // 게임오브젝트를 deactive한다.
-        _obj.SetActive(false);
-        pool.Add(_obj);//미리 poolSize만큼 게임오브젝트를 생성한다.
-    */
-
-        _obj.SetActive(false);
-        pool.Enqueue(_obj); // 다시 큐에 넣음
+        return null;
     }
 
-    IEnumerator ObjectTimer(GameObject _obj)
+    public void Release(GameObject _obj)
     {
-        yield return new WaitForSeconds(3f);
+        // 게임오브젝트를 비활성화합니다.
+        _obj.SetActive(false);
+        pool.Add(_obj);
 
-        Release(_obj);
+        // 이름을 키로 사용하여 poolDictionary에 오브젝트를 추가합니다.
+        string key = _obj.name.Replace("(Clone)", "").Trim();
+        if (!poolDictionary.ContainsKey(key))
+        {
+            poolDictionary[key] = new List<GameObject>();
+        }
 
+        poolDictionary[key].Add(_obj);
     }
-
-
 }
